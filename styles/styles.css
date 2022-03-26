@@ -1,11 +1,14 @@
-.container{
+#people-container{
     /*border: 1px solid lightsalmon;*/
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    flex-grow: 4;
+    gap: 1px;
 }
 .container-item{
-    width: 18rem;
+    width: 12rem;
     display: inline-block;
     border: 1px solid saddlebrown;
     padding: 1%;

@@ -41,16 +41,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .then(response => response.json())
         .then(response => {
             console.log(response['results'])
-            renderPeopleList(people);
+            renderPeopleList(response['results']);
         });
 
     function renderPeopleList(people){
-        const htmlToAppend = people.map(person => getPersonLayout(person))
-        // append html to proper container
+        const peopleHtmlElems = people.map(person => getPersonLayout(person))
+        const peopleList = document.querySelector('#people-container');
+        peopleHtmlElems.forEach(elem => peopleList.append(elem));
     }
 
     function getPersonLayout(person){
-
+        const root = document.createElement('div');
+        root.classList.add('container-item');
+        const name = document.createElement('div');
+        name.classList.add('card-title');
+        name.innerText = person['name'];
+        root.append(name)
+        return root;
     }
 })
 
