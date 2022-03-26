@@ -1,0 +1,12 @@
+.container{
+    /*border: 1px solid lightsalmon;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.container-item{
+    width: 18rem;
+    display: inline-block;
+    border: 1px solid saddlebrown;
+    padding: 1%;
+}
