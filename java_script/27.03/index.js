@@ -40,24 +40,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetch(`http://swapi.dev/api/people/?page=1`)
         .then(response => response.json())
         .then(response => {
-            console.log(response['results'])
+            console.log(response['results']);
             renderPeopleList(response['results']);
         });
-
     function renderPeopleList(people){
         const peopleHtmlElems = people.map(person => getPersonLayout(person))
         const peopleList = document.querySelector('#people-container');
         peopleHtmlElems.forEach(elem => peopleList.append(elem));
     }
-
     function getPersonLayout(person){
+        const root = getPersonRoot();
+        root.append(getPersonName(person));
+        root.append(getPersonButton());
+        return root;
+    }
+    function getPersonRoot(){
         const root = document.createElement('div');
         root.classList.add('container-item');
+        return root;
+    }
+    function getPersonName(person){
         const name = document.createElement('div');
         name.classList.add('card-title');
         name.innerText = person['name'];
-        root.append(name)
-        return root;
+        return name;
+    }
+    function getPersonButton(){
+        const button = document.createElement('button');
+        button.innerText = 'Click me';
+        button.addEventListener('click', () => console.log('click!'))
+        return button;
     }
 })
 
