@@ -22,4 +22,35 @@ document.addEventListener('DOMContentLoaded', (event) => {
     //     console.log('click', event)
     // });
     // BASIC DOM MANIPULATION END
+
+    // OLD SCHOOL REQUEST
+    // // Create new XMLHttpRequest() object to communicate with server layer
+    // const request = new XMLHttpRequest();
+    // // open() defines method type and specific URL of api that we want to communicate with
+    // request.open('GET', 'http://swapi.dev/api/people/?page=1');
+    // // send() execute the defined request
+    // request.send();
+    // // wait for request results and set listener to deal with the data
+    // request.addEventListener('load', function(){
+    //     const response = JSON.parse(this.responseText)
+    //     console.log(response);
+    // });
+    // OLD SCHOOL REQUEST END
+
+    fetch(`http://swapi.dev/api/people/?page=1`)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response['results'])
+            renderPeopleList(people);
+        });
+
+    function renderPeopleList(people){
+        const htmlToAppend = people.map(person => getPersonLayout(person))
+        // append html to proper container
+    }
+
+    function getPersonLayout(person){
+
+    }
 })
+
