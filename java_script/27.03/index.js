@@ -40,15 +40,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetch(`http://swapi.dev/api/people/?page=1`)
         .then(response => response.json())
         .then(response => {
-            // console.log(response['results']);
+            // console.log(response);
+            renderPeoplePaginator(response['count']);
             renderPeopleList(response['results']);
         });
-    function renderPeopleList(people){
+
+    function renderPeoplePaginator(count) {
+        const pages = Math.ceil(count / 10);
+        const select = document.getElementById('people-pagination');
+        for (let i = 1; i <= pages; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.innerText = i;
+            select.append(option);
+        }
+    }
+
+    function renderPeopleList(people) {
         const peopleHtmlElems = people.map((person, index) => getPersonLayout(person, index))
         const peopleList = document.querySelector('#people-container');
         peopleHtmlElems.forEach(elem => peopleList.append(elem));
     }
-    function getPersonLayout(person, index){
+
+    function getPersonLayout(person, index) {
         const root = getPersonRoot();
         root.append(getPersonProp('', person['name']));
         root.append(getPersonProp('Birth Year: ', person['birth_year'], index));
@@ -57,21 +71,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
         root.append(getPersonButton(index));
         return root;
     }
-    function getPersonRoot(){
+
+    function getPersonRoot() {
         const root = document.createElement('div');
         root.classList.add('container-item');
         return root;
     }
-    function getPersonProp(title, property, index){
+
+    function getPersonProp(title, property, index) {
         const prop = document.createElement('div');
         prop.classList.add('card-title');
-        if(index !== undefined){
+        if (index !== undefined) {
             prop.classList.add(`person-toggle-prop-${index}`);
         }
         prop.innerText = `${title}${property}`;
         return prop;
     }
-    function getPersonButton(index){
+
+    function getPersonButton(index) {
         const button = document.createElement('button');
         button.id = `person-details-button-${index}`;
         button.classList.add('person-details-button');
@@ -79,9 +96,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         button.addEventListener('click', () => {
             const props = document.querySelectorAll(`.person-toggle-prop-${index}`);
             props.forEach(prop => {
-                if(prop.classList.contains('hidden')){
+                if (prop.classList.contains('hidden')) {
                     prop.classList.remove('hidden');
-                }else{
+                } else {
                     prop.classList.add('hidden');
                 }
             });
@@ -92,22 +109,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // HTML element basic class manipulation
     const chameleonButton = document.getElementById('chameleon-button');
     chameleonButton.addEventListener('click', () => {
-        if(chameleonButton.classList.contains('button-blank')) {
+        if (chameleonButton.classList.contains('button-blank')) {
             chameleonButton.classList.remove('button-blank');
             chameleonButton.classList.add('button-green');
             return;
         }
-        if(chameleonButton.classList.contains('button-green')){
+        if (chameleonButton.classList.contains('button-green')) {
             chameleonButton.classList.remove('button-green');
             chameleonButton.classList.add('button-yellow');
             return;
         }
-        if(chameleonButton.classList.contains('button-yellow')){
+        if (chameleonButton.classList.contains('button-yellow')) {
             chameleonButton.classList.remove('button-yellow');
             chameleonButton.classList.add('button-red');
             return;
         }
-        if(chameleonButton.classList.contains('button-red')){
+        if (chameleonButton.classList.contains('button-red')) {
             chameleonButton.classList.remove('button-red');
             chameleonButton.classList.add('button-blank');
             return;
@@ -132,9 +149,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const toggleButton = document.getElementById('toggle-button');
     const toggleContent = document.getElementById('toggle-content');
     toggleButton.addEventListener('click', () => {
-        if(toggleContent.classList.contains('hide')){
+        if (toggleContent.classList.contains('hide')) {
             toggleContent.classList.remove('hide');
-        }else{
+        } else {
             toggleContent.classList.add('hide');
         }
     });
