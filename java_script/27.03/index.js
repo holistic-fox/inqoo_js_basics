@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function getPersonProp(title, property, index){
         const prop = document.createElement('div');
         prop.classList.add('card-title');
-        if(index){
+        if(index !== undefined){
             prop.classList.add(`person-toggle-prop-${index}`);
         }
         prop.innerText = `${title}${property}`;
