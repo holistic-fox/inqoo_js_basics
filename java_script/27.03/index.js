@@ -51,9 +51,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function getPersonLayout(person, index){
         const root = getPersonRoot();
         root.append(getPersonProp('', person['name']));
-        root.append(getPersonProp('Birth Year: ', person['birth_year']));
-        root.append(getPersonProp('Skin: ', person['skin_color']));
-        root.append(getPersonProp('Hair: ', person['hair_color']));
+        root.append(getPersonProp('Birth Year: ', person['birth_year'], index));
+        root.append(getPersonProp('Skin: ', person['skin_color'], index));
+        root.append(getPersonProp('Hair: ', person['hair_color'], index));
         root.append(getPersonButton(index));
         return root;
     }
@@ -62,17 +62,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
         root.classList.add('container-item');
         return root;
     }
-    function getPersonProp(title, property){
+    function getPersonProp(title, property, index){
         const prop = document.createElement('div');
         prop.classList.add('card-title');
+        if(index){
+            prop.classList.add(`person-toggle-prop-${index}`);
+        }
         prop.innerText = `${title}${property}`;
         return prop;
     }
     function getPersonButton(index){
         const button = document.createElement('button');
-        button.id = `person-details-${index}`;
-        button.innerText = 'Click me';
-        button.addEventListener('click', () => console.log('click!'))
+        button.id = `person-details-button-${index}`;
+        button.classList.add('person-details-button');
+        button.innerText = 'Details';
+        button.addEventListener('click', () => {
+            const props = document.querySelectorAll(`.person-toggle-prop-${index}`);
+            props.forEach(prop => {
+                if(prop.classList.contains('hidden')){
+                    prop.classList.remove('hidden');
+                }else{
+                    prop.classList.add('hidden');
+                }
+            });
+        });
         return button;
     }
 

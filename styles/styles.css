@@ -57,6 +57,10 @@
     /*visibility: hidden;*/
 }
 
+.hidden{
+    visibility: hidden;
+}
+
 .card-title{
     font-size: large;
 }
