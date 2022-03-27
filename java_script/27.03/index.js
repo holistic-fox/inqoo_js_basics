@@ -107,5 +107,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         onHoverButton.classList.remove('button-hover');
         onHoverButton.classList.add('button-blank');
     });
+
+    document.addEventListener('mousemove', (event) => {
+        document.getElementById('mouse-position-x').value = event.x;
+        document.getElementById('mouse-position-y').value = event.y;
+    });
 })
 
