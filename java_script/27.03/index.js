@@ -71,5 +71,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
         button.addEventListener('click', () => console.log('click!'))
         return button;
     }
+
+
+    // HTML element basic class manipulation
+    const chameleonButton = document.getElementById('chameleon-button');
+    chameleonButton.addEventListener('click', () => {
+        if(chameleonButton.classList.contains('button-blank')) {
+            chameleonButton.classList.remove('button-blank');
+            chameleonButton.classList.add('button-green');
+            return;
+        }
+        if(chameleonButton.classList.contains('button-green')){
+            chameleonButton.classList.remove('button-green');
+            chameleonButton.classList.add('button-yellow');
+            return;
+        }
+        if(chameleonButton.classList.contains('button-yellow')){
+            chameleonButton.classList.remove('button-yellow');
+            chameleonButton.classList.add('button-red');
+            return;
+        }
+        if(chameleonButton.classList.contains('button-red')){
+            chameleonButton.classList.remove('button-red');
+            chameleonButton.classList.add('button-blank');
+            return;
+        }
+    });
 })
 
