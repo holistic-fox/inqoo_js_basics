@@ -97,5 +97,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return;
         }
     });
+
+    const onHoverButton = document.getElementById('on-hover-button');
+    onHoverButton.addEventListener('mouseenter', () => {
+        onHoverButton.classList.remove('button-blank')
+        onHoverButton.classList.add('button-hover');
+    });
+    onHoverButton.addEventListener('mouseleave', () => {
+        onHoverButton.classList.remove('button-hover');
+        onHoverButton.classList.add('button-blank');
+    });
 })
 

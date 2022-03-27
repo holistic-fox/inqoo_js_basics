@@ -43,3 +43,11 @@
     background-color: red;
 }
 
+.button-hover{
+    background-color: lightgray;
+}
+
+.mouse-position-input{
+    height: 30px;
+    width: 30px;
+}
