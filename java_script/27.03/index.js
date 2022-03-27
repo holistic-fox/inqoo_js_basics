@@ -40,18 +40,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetch(`http://swapi.dev/api/people/?page=1`)
         .then(response => response.json())
         .then(response => {
-            console.log(response['results']);
+            // console.log(response['results']);
             renderPeopleList(response['results']);
         });
     function renderPeopleList(people){
-        const peopleHtmlElems = people.map(person => getPersonLayout(person))
+        const peopleHtmlElems = people.map((person, index) => getPersonLayout(person, index))
         const peopleList = document.querySelector('#people-container');
         peopleHtmlElems.forEach(elem => peopleList.append(elem));
     }
-    function getPersonLayout(person){
+    function getPersonLayout(person, index){
         const root = getPersonRoot();
-        root.append(getPersonName(person));
-        root.append(getPersonButton());
+        root.append(getPersonProp('', person['name']));
+        root.append(getPersonProp('Birth Year: ', person['birth_year']));
+        root.append(getPersonProp('Skin: ', person['skin_color']));
+        root.append(getPersonProp('Hair: ', person['hair_color']));
+        root.append(getPersonButton(index));
         return root;
     }
     function getPersonRoot(){
@@ -59,19 +62,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
         root.classList.add('container-item');
         return root;
     }
-    function getPersonName(person){
-        const name = document.createElement('div');
-        name.classList.add('card-title');
-        name.innerText = person['name'];
-        return name;
+    function getPersonProp(title, property){
+        const prop = document.createElement('div');
+        prop.classList.add('card-title');
+        prop.innerText = `${title}${property}`;
+        return prop;
     }
-    function getPersonButton(){
+    function getPersonButton(index){
         const button = document.createElement('button');
+        button.id = `person-details-${index}`;
         button.innerText = 'Click me';
         button.addEventListener('click', () => console.log('click!'))
         return button;
     }
-
 
     // HTML element basic class manipulation
     const chameleonButton = document.getElementById('chameleon-button');
@@ -111,6 +114,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.addEventListener('mousemove', (event) => {
         document.getElementById('mouse-position-x').value = event.x;
         document.getElementById('mouse-position-y').value = event.y;
+    });
+
+    const toggleButton = document.getElementById('toggle-button');
+    const toggleContent = document.getElementById('toggle-content');
+    toggleButton.addEventListener('click', () => {
+        if(toggleContent.classList.contains('hide')){
+            toggleContent.classList.remove('hide');
+        }else{
+            toggleContent.classList.add('hide');
+        }
     });
 })
 

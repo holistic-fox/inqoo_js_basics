@@ -51,3 +51,12 @@
     height: 30px;
     width: 30px;
 }
+
+.hide{
+    display: none;
+    /*visibility: hidden;*/
+}
+
+.card-title{
+    font-size: large;
+}
