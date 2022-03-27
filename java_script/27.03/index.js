@@ -45,23 +45,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
             renderPeopleList(response['results']);
         });
 
-    function renderPeoplePaginator(count) {
-        const pages = Math.ceil(count / 10);
+    function renderPeoplePaginator(count, pageSize = 10) {
+        const pages = Math.ceil(count / pageSize);
         const select = document.getElementById('people-pagination');
-        for (let i = 1; i <= pages; i++) {
+        // TODO clean select options
+        for(let i =1; i <= pages; i++){
             const option = document.createElement('option');
-            option.value = i;
             option.innerText = i;
+            option.value = i;
             select.append(option);
         }
         select.addEventListener('change', (event) => {
-           console.log('change', select.value, event.target.value);
+            // console.log('on change', select.value);
+            // console.log('on change', event.target.value)
+            fetch(`http://swapi.dev/api/people/?page=${event.target.value}`)
+                .then(response => response.json())
+                .then(response => {
+                    // console.log(response);
+                    renderPeoplePaginator(response['count']);
+                    renderPeopleList(response['results']);
+                });
         });
     }
 
     function renderPeopleList(people) {
         const peopleHtmlElems = people.map((person, index) => getPersonLayout(person, index))
         const peopleList = document.querySelector('#people-container');
+        // TODO clean people list
         peopleHtmlElems.forEach(elem => peopleList.append(elem));
     }
 
