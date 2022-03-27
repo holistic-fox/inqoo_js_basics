@@ -54,6 +54,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             option.innerText = i;
             select.append(option);
         }
+        select.addEventListener('change', (event) => {
+           console.log('change', select.value, event.target.value);
+        });
     }
 
     function renderPeopleList(people) {
